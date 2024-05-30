@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import json
 import os
-import random
 import sys
 import traceback
 from pathlib import Path
@@ -14,6 +13,7 @@ import torch
 from daemon import AiForkDaemon as Daemon
 from daemon import AiInput as Input
 from yolov4 import Darknet, non_max_suppression, scale_coords
+import secrets
 
 __version__ = "0.8.12"
 
@@ -131,7 +131,7 @@ class AiInput(Input):
                         }
                     )
 
-                    color = [random.randint(0, 255) for _ in range(3)]
+                    color = [secrets.SystemRandom().randint(0, 255) for _ in range(3)]
                     cv2.rectangle(
                         img_copy,
                         (
