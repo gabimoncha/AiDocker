@@ -62,13 +62,13 @@ class Daemon:
 
         sys.stdout.flush()
         sys.stderr.flush()
-        si = open(self.stdin, "r")
-        so = open(self.stdout, "a+")
-        se = open(self.stderr, "a+")
+        with open(self.stdin, "r") as si:
+            with open(self.stdout, "a+") as so:
+                with open(self.stderr, "a+") as se:
 
-        os.dup2(si.fileno(), sys.stdin.fileno())
-        os.dup2(so.fileno(), sys.stdout.fileno())
-        os.dup2(se.fileno(), sys.stderr.fileno())
+                    os.dup2(si.fileno(), sys.stdin.fileno())
+                    os.dup2(so.fileno(), sys.stdout.fileno())
+                    os.dup2(se.fileno(), sys.stderr.fileno())
 
         atexit.register(self.atexit)
         pid = str(os.getpid())
