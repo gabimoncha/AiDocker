@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import json
 import os
-import random
 import traceback
 from pathlib import Path
 
@@ -17,6 +16,7 @@ from transformers import (
 
 from daemon import AiBatch as Batch
 from daemon import AiBatchDaemon as Daemon
+import secrets
 
 __version__ = "0.8.12"
 
@@ -94,7 +94,7 @@ class AIDaemon(Daemon):
             # Try reproducing the results
             torch.manual_seed(42)
             np.random.seed(42)
-            random.seed(42)
+            secrets.SystemRandom().seed(42)
 
             # Inference
             model_input = batch.prepare()
